@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: image-etl-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: etl-worker
+        image: your-docker-hub-username/image-etl-pipeline:v1.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+      restartPolicy: OnFailure
+  backoffLimit: 3
